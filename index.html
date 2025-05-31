@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Robot AI Local</title>
+	<!-- Styles -->
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/robots.css">
+	<link rel="stylesheet" href="styles/terminal.css">
+	<link rel="stylesheet" href="styles/threejs.css">
+	<link rel="icon" href="data:,">
+
+	<!-- Librairies externes -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<!-- Entrée principale JS -->
+	<script type="module" src="scripts/main.js?v=20250513"></script>
+
+</head>
+
+<body>
+	<div id="app">
+		<!-- Journal système (log principal en haut) -->
+		<pre id="systemLog" class="log-output" style="background:#111; color:#0f0; height:150px; overflow-y:auto; font-family:monospace; padding:8px; border:1px solid #333;"></pre>
+  <div class="robots-wrapper">
+    <!-- Robot Robert -->
+    <div class="robot-container">
+      <h2 class="robot-title">🤖 Robert</h2>
+      <div class="robot robot-robert" id="robotRobert">
+        <div class="head">
+          <div class="eye" id="robertLeftEye"></div>
+          <div class="eye" id="robertRightEye"></div>
+        </div>
+        <div class="body"></div>
+        <div class="base"></div>
+      </div>
+    </div>
+
+    <!-- Robot Monique -->
+    <div class="robot-container">
+      <h2 class="robot-title">👩‍🔬 Monique</h2>
+      <div class="robot robot-monique" id="robotMonique">
+        <div class="head">
+          <div class="eye" id="moniqueLeftEye">
+            <div class="pupil" id="moniqueLeftPupil"></div>
+          </div>
+          <div class="eye" id="moniqueRightEye">
+            <div class="pupil" id="moniqueRightPupil"></div>
+          </div>
+		    <div class="mouth"></div>
+        </div>
+  <div class="neck"></div>
+  <div class="torso">
+    <div class="breast left"></div>
+    <div class="breast right"></div>
+  </div>
+  <div class="waist"></div>
+  <div class="hips"></div>
+  <div class="leg left">
+    <div class="thigh"></div>
+    <div class="knee"></div>
+    <div class="calf"></div>
+    <div class="ankle"></div>
+  </div>
+  <div class="leg right">
+    <div class="thigh"></div>
+    <div class="knee"></div>
+    <div class="calf"></div>
+    <div class="ankle"></div>
+  </div>
+  <div class="arm left">
+    <div class="upper-arm"></div>
+    <div class="elbow"></div>
+    <div class="forearm"></div>
+  </div>
+  <div class="arm right">
+    <div class="upper-arm"></div>
+    <div class="elbow"></div>
+    <div class="forearm"></div>
+  </div>
+
+        <div class="emotion-label" id="moniqueEmotionLabel">Émotion : neutre</div>
+        <div class="emotion-log" id="moniqueEmotionLog"></div>
+        <div class="body"></div>
+        <div class="base"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contrôles -->
+  <div class="controls">
+    <button data-emotion="neutral" class="active">Neutre</button>
+    <button data-emotion="happy">Heureuse</button>
+    <button data-emotion="angry">Colère</button>
+    <button data-emotion="sleepy">Endormie</button>
+    <button data-emotion="curious">Curieuse</button>
+	<button data-emotion="inLove">Amoureuse</button>
+	<button data-emotion="excited">Excitée</button>
+	<button data-emotion="proud">Fière</button>
+	<button data-emotion="surprised">Surprise</button>
+	<button data-emotion="nostalgic">Nostalgique</button>
+	<button data-emotion="wary">Méfiante</button>
+	<button data-emotion="mischievous">Malicieuse</button>
+	<button data-emotion="jealous">Jalouse</button>
+	<button data-emotion="anxious">Anxieuse</button>
+	<button data-emotion="disgusted">Dégoutée</button>
+	<button data-emotion="hacker">Hacker</button>
+	<button data-emotion="overheated">Surchauffe</button>
+  </div>
+
+  <div class="instructions">
+    <p>Cliquez sur les boutons ou utilisez les touches 1 à 5 pour changer l'émotion de Monique</p>
+    <p>Robert cligne des yeux automatiquement et tourne la tête</p>
+  </div>
+		<!-- Statut WebSocket & Consommation énergétique -->
+		<div style="display: flex; gap: 20px; margin: 20px 0;">
+			<div>
+				<span class="websocket-status" id="wsStatus"></span>
+				<button id="wsToggleButton">WebSocket: OFF</button>
+
+			</div>
+			<div class="energy-bar" id="energyConsumption">
+				<div style="width: 50%; height: 100%; background: #0f0; border-radius: 10px;"></div>
+			</div>
+		</div>
+		<!-- Section 3D + Terminal -->
+		<div class="robot-container">
+			<!-- Visualisation 3D -->
+			<div id="three-container" style="width: 100%; height: 400px; background: #000; border: 1px solid #333; border-radius: 8px;"></div>
+			<!-- Terminal SSH -->
+			<div class="control-panel">
+				<h3>Mode Développement (SSH)</h3>
+				<div id="terminal" class="terminal-window"></div>
+			</div>
+		</div>
+		<div class="robot-container">
+			<!-- Section principale -->
+			<div class="deployment-docs">
+				<!-- Infrastructure -->
+				<section class="infrastructure-section servo-control">
+					<h2><span class="status-led"></span> Infrastructure</h2>
+					<div class="hardware-schema">
+						<div class="component pulsing">
+							<h3>Stack Technique</h3>
+							<ul class="tech-grid">
+								<li><span class="terminal-cmd">Node.js/Express</span></li>
+								<li><span class="terminal-cmd">TimescaleDB</span></li>
+								<li><span class="terminal-cmd">Redis</span></li>
+								<li><span class="terminal-cmd">Docker/K8s</span></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<!-- CI/CD Pipeline -->
+				<section class="pipeline-section control-panel">
+					<h2><span class="websocket-status"></span> CI/CD</h2>
+					<pre class="terminal-window">
+<span class="terminal-cmd">stages:</span>
+  - test
+  - build
+  - deploy
+
+<span class="terminal-cmd">module-tests:</span>
+  image: node:16
+  script:
+    - npm install
+    - npm run test:modules</pre>
+				</section>
+				<!-- Monitoring -->
+				<div class="monitoring-grid">
+					<div class="grafana-card component">
+						<h3><span class="status-led" style="--led-color: #0f0"></span> Monitoring</h3>
+						<ul class="metrics-list">
+							<li>Prometheus <span class="energy-bar">
+									<div style="width: 85%"></div>
+								</span></li>
+							<li>Loki <span class="energy-bar">
+									<div style="width: 78%"></div>
+								</span></li>
+							<li>Tempo <span class="energy-bar">
+									<div style="width: 92%"></div>
+								</span></li>
+						</ul>
+					</div><button onclick="processCommand()">Envoyer</button>
+				</div>
+				<!-- Sécurité -->
+				<section class="security-panel servo-control">
+					<h2><span class="pulsing"></span> Sécurité</h2>
+					<div class="security-grid">
+						<div class="security-chip">
+							<span class="terminal-cmd error">Trivy</span>
+							<div class="log-output">Scan quotidien</div>
+						</div>
+						<div class="security-chip">
+							<span class="terminal-cmd">CSP</span>
+							<div class="log-output">Politique stricte</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+/* terminal.css */
+#terminal {
+    font-family: 'Courier New', monospace;
+    background: 
+        linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9)),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 0, 0.05) 0px,
+            rgba(0, 255, 0, 0.05) 1px,
+            transparent 1px,
+            transparent 5px
+        );
+    color: var(--accent);
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.15);
+    box-shadow:
+        inset 0 0 20px rgba(0, 255, 0, 0.05),
+        0 0 30px rgba(0, 255, 0, 0.1);
+    position: relative;
+}
+
+#terminal::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: 
+        linear-gradient(transparent 50%, rgba(0, 255, 0, 0.03) 50%),
+        radial-gradient(circle at var(--x) var(--y), 
+            rgba(0, 255, 0, 0.1) 0%, 
+            transparent 80%);
+    background-size: 100% 4px, 200% 200%;
+}
+
+.terminal-cmd {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.terminal-cmd::after {
+    content: "■";
+    margin-left: 5px;
+    animation: cursorBlink 1s step-end infinite;
+    color: var(--accent);
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 0; }
+    51%, 100% { opacity: 1; }
+}
+
+#terminal::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#terminal::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-line {
+    margin: 4px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.terminal-line::before {
+    content: '> ';
+    color: var(--accent);
+    margin-right: 5px;
+    text-shadow: 0 0 5px var(--accent);
+}
+
+.terminal-input {
+    outline: none;
+    display: inline-block;
+    min-width: 1ch;
+    color: var(--accent);
+}
+::selection {
+    background: rgba(0, 255, 0, 0.3);
+    color: #000;
+}

@@ -1,0 +1,18 @@
+.wave-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--wave-color, #00f) 20%, transparent 80%);
+  animation: pulseWave 2s infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes pulseWave {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}

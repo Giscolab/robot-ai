@@ -1,0 +1,53 @@
+
+{
+  "emotions": {
+    "neutral": { "color": "#00aaff", "led": "#00f", "blinkRate": 4000, "emoji": "😐" },
+    "happy": { "color": "#0f0", "led": "#0f0", "blinkRate": 2500, "emoji": "😊" },
+    "angry": { "color": "#f00", "led": "#f00", "blinkRate": 1000, "emoji": "😠" },
+    "sleepy": { "color": "#008", "led": "#008", "blinkRate": 6000, "emoji": "😴" },
+    "curious": { "color": "#ff0", "led": "#880", "blinkRate": 2000, "emoji": "🤔" }
+  },
+  "websocket": {
+    "simuUrl": "ws://localhost:8080",
+    "prodUrl": "wss://prod.robot.com/secure",
+    "handshakeMessage": { "type": "handshake" }
+  },
+  "terminal": {
+    "files": ["config.yaml", "motor_driver.fw", "sensor_logs", "README.md", "energy.log"],
+    "helpText": "Commandes disponibles : uptime, ls, tail, clear, date, whoami, echo [txt], help",
+    "maxHistory": 200
+  },
+  "threejs": {
+    "cameraPosition": { "x": 0, "y": 2, "z": 5 },
+    "lightIntensity": 1,
+    "ambientLightColor": "#404040",
+    "armSegments": 3,
+    "armLength": 0.8,
+    "bodyColor": "#444444",
+    "headColor": "#333333",
+    "ledColor": "#ff0000"
+  },
+  "energy": {
+    "cpuMultiplier": 0.1,
+    "motorBase": 90,
+    "motorScale": 0.1,
+    "ledRedValue": 1,
+    "ledGreenValue": 0.3,
+    "ledOtherValue": 0.1
+  },
+  "logger": {
+    "maxLines": 200
+  },
+  "hardware": {
+    "servoXMin": 0,
+    "servoXMax": 180,
+    "servoYMin": 0,
+    "servoYMax": 180
+  },
+  "mockData": {
+    "tempMin": 30,
+    "tempMax": 80,
+    "currentMin": 0,
+    "currentMax": 2
+  }
+}
